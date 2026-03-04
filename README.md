@@ -4,7 +4,7 @@ Real-time crypto social data in Claude. Track trending tokens, surface narrative
 
 ## What it does
 
-This skill lets Claude tap into [Elfa's](https://elfa.ai) social intelligence platform to:
+This skill lets Claude tap into [Elfa's](https://go.elfa.ai/claude-visit) social intelligence platform to:
 
 - Pull trending tokens and contract addresses from Twitter/X and Telegram
 - Search social mentions by ticker or keyword
@@ -62,5 +62,5 @@ elfa-api/
 
 ## Links
 
-- [Elfa API docs](https://docs.elfa.ai)
+- [Elfa API docs](https://go.elfa.ai/claude-docs)
 - [Get an API key](https://go.elfa.ai/claude-skills)
