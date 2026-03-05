@@ -1,10 +1,8 @@
 # Elfa API Skill for Claude
 
-Real-time crypto social data in Claude. Track trending tokens, surface narratives, search mentions, and run market analysis through Elfa's API without leaving the chat.
+Real-time crypto social data in Claude. Track trending tokens, surface narratives, search mentions, and run market analysis without leaving the chat.
 
 ## What it does
-
-This skill lets Claude tap into [Elfa's](https://go.elfa.ai/claude-visit) social intelligence platform to:
 
 - Pull trending tokens and contract addresses from Twitter/X and Telegram
 - Search social mentions by ticker or keyword
@@ -17,8 +15,9 @@ If you have an API key, Claude makes live calls and returns real data. Without o
 
 ## Install
 
-1. Download `elfa-api.skill` from [Releases](../../releases)
-2. Open Claude and drag the file into your conversation, or add it via **Settings → Skills**
+1. Download `SKILL.md` from [Releases](../../releases)
+2. Start a conversation with Claude and attach the file
+3. Ask Claude to use that skill
 
 ## Get an API key
 
@@ -60,7 +59,6 @@ elfa-api/
     └── swagger.json                # OpenAPI spec
 ```
 
-## Links
+---
 
-- [Elfa API docs](https://go.elfa.ai/claude-docs)
-- [Get an API key](https://go.elfa.ai/claude-skills)
+Powered by [Elfa AI](https://go.elfa.ai/claude-visit) · [Documentation](https://go.elfa.ai/claude-docs)
