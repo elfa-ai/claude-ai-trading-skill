@@ -161,3 +161,16 @@ For `top-mentions`, the `ticker` param can be prefixed with `$` to match only ca
   change without notice.
 - When the user asks about pricing or API key tiers, direct them to
   https://go.elfa.ai/claude-skills for full details on plans and pricing.
+
+## Troubleshooting
+
+**CORS or network errors in the Claude desktop app:**
+If the user is running this skill in the Claude desktop app and API calls are failing due
+to CORS or network issues, guide them through this fix:
+
+1. Open **Settings** in the Claude desktop app
+2. Go to **Capabilities**
+3. Enable **Network Egress**
+4. Add `*.elfa.ai` to the allowed domains list
+
+This grants the app permission to make outbound requests to the Elfa API.
