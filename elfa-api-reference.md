@@ -1,19 +1,55 @@
 # Elfa API v2 — Full Endpoint Reference
 
 Base URL: `https://api.elfa.ai`
-Auth header: `x-elfa-api-key: <your-key>`
 **Version:** v2 (current)
 
-**Getting an API key:** Sign up at https://go.elfa.ai/claude-skills to get a free key
-with 1,000 credits. Most endpoints are available on the free tier. The following require
+## Access modes
+
+Elfa offers two independent ways to authenticate requests:
+
+| Mode | Endpoint prefix | Auth header | Description |
+|---|---|---|---|
+| **API key** | `/v2/` | `x-elfa-api-key: YOUR_KEY` | Traditional key-based auth. Register for free. |
+| **x402 (keyless)** | `/x402/v2/` | `X-PAYMENT: <signed-payload>` | Pay per request with USDC on Base. No signup. |
+
+**API key mode:** Sign up at https://go.elfa.ai/claude-skills to get a free key with
+1,000 credits. Most endpoints are available on the free tier. The following require
 a Pay-As-You-Go or Grow plan: trending narratives and AI chat.
 Full plan details at https://go.elfa.ai/claude-skills.
+
+**x402 keyless mode (beta):** No registration required. Any wallet can call any endpoint
+by paying per request with USDC on Base. See https://docs.elfa.ai/x402-payments for setup.
+
+- **Chain:** Base (`eip155:8453`)
+- **Currency:** USDC (`0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`)
+- **Libraries:** `@x402/fetch` (recommended) or `@x402/axios`
+
+**x402 pricing:**
+
+| Tier | USD per request | Endpoints |
+|---|---|---|
+| Standard (1 credit) | $0.009 | trending-tokens, smart-stats, keyword-mentions, token-news, top-mentions, trending-cas |
+| Extended (5 credits) | $0.045 | event-summary, trending-narratives |
+| Chat — fast | $0.225 | chat (speed: "fast") |
+| Chat — expert | $1.00 | chat (speed: "expert", default) |
+
+**How x402 works:**
+1. Send a request to `/x402/v2/...` without any auth header.
+2. Server responds with HTTP **402** containing payment requirements.
+3. Wallet signs a USDC transfer authorization (no gas fees).
+4. Resend with the signed payload in the `X-PAYMENT` header.
+5. Server verifies, serves the response, and settles on-chain.
+
+Note: x402 and API key credits are independent — they do not overlap. Rate limits for
+x402 apply per wallet address.
 
 ---
 
 ## 1. API Key Status
 
 **GET** `/v2/key-status`
+
+*API key mode only — not available via x402.*
 
 Returns your key's tier, usage, limits, and remaining requests.
 
@@ -188,7 +224,8 @@ Response metadata: `summaries` (count), `total_summarized`, `total`.
 
 Trending narrative clusters from Twitter/X analysis. **Costs 5 credits.**
 
-*Requires Pay-As-You-Go or Grow plan (not available on free tier).*
+*API key mode: requires Pay-As-You-Go or Grow plan (not available on free tier).
+x402 mode: available to any wallet at $0.045 per request.*
 
 | Param | Type | Required | Default | Description |
 |---|---|---|---|---|
@@ -263,7 +300,7 @@ Response data array items:
 
 **GET** `/v2/aggregations/trending-cas/telegram`
 
-Same parameters and response schema as the Twitter version (endpoint 10), but for Telegram mentions.
+Same parameters and response schema as the Twitter version (endpoint 9), but for Telegram mentions.
 
 ---
 
@@ -273,7 +310,8 @@ Same parameters and response schema as the Twitter version (endpoint 10), but fo
 
 Send a message to Elfa AI for market analysis. Supports multiple analysis types and multi-turn sessions.
 
-*Requires Pay-As-You-Go or Grow plan (not available on free tier).*
+*API key mode: requires Pay-As-You-Go or Grow plan (not available on free tier).
+x402 mode: available to any wallet — $0.225 (fast) or $1.00 (expert) per request.*
 
 **Request body (JSON):**
 
